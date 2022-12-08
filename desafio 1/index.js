@@ -120,10 +120,10 @@
 
 // Usuarios, os usuarios serão objetos contruidos apartir da classe user
 
-  const user1 = new user("Daniel","10","29/09","Rua Amasonas","22","",1000,"");
-  const user2 = new user("Fidel","11","27/08","Rua Amasonas","22","87160-000",1500,"");
-  const user3 = new user("Daniele","12","26/08","Rua Amasonas","22","87160-000",2000,"");
-  const user4 = new user("Jose Luis","14","14/06","Rua Hebe Camargo","481","87143-000",1600,"");
+  const user1 = new user("Daniel","0","29/09","Rua Amasonas","22","",1000,"");
+  const user2 = new user("Fidel","1","27/08","Rua Amasonas","22","87160-000",1500,"");
+  const user3 = new user("Daniele","2","26/08","Rua Amasonas","22","87160-000",2000,"");
+  const user4 = new user("Jose Luis","3","14/06","Rua Hebe Camargo","481","87143-000",1600,"");
 
   const users = [user1, user2, user3, user4];
 
@@ -280,6 +280,10 @@
   // Function para saque
   withdraw() {
 
+    //let nameWithdraw = prompt("Qual o seu nome ?")
+    //users.includes(nameWithdraw)
+    //console.log(users.includes(nameWithdraw));
+
     var customerWithdrawal = prompt(
       "Olá seja bem vindo \nPor favor escolha um dos usuarios abaixo:\n0 - Daniel\n1 - Fidel\n2 - Daniele\n3 - Jose Luis",
       ""
@@ -355,3 +359,6 @@
 
   const banco = new bank("Banco Patda");
   banco.acess();
+
+
+  
