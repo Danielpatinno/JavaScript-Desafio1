@@ -17,29 +17,6 @@
                };
    }
     // Functions para melhor interação com o usuario, pegando nome dele
-    // Function para pegar o nome do Usuario para dar o retorno de boas vindas
-  getNameUser(numer) {
-
-    let userName = null;
-    switch (numer) {
-      case "0":
-        userName = "Daniel";
-        break;
-      case "1":
-        userName = "Fidel";
-        break;
-      case "2":
-        userName = "Daniele";
-        break;
-      case "3":
-        userName = "Jose Luis";
-        break;
-      default:
-        break;
-    }
-    return userName;
-
-  }
   // Function para gerar id para usuarios
   uuidv4() {
 
@@ -131,6 +108,8 @@
   const user4 = new user("Jose Luis",22222,"14/06","Rua Hebe Camargo","481","87143-000",1600,"");
 
   const users = [user1, user2, user3, user4];
+
+  var indexAcess = null;
 
 // Classe banco, onde irá erdar apenas nome da classe de usuarios que irá receber o nome do banco apenas e funções de gerente,cliente, etc
 
@@ -246,7 +225,7 @@
     var userdelet = prompt(
       "Dígite a chave de acesso que deseja eliminar"
     );
-    let delet = confirm("Usuario escolhido foi o " + this.getNameUser(userdelet) + "\nEstá correto ?")
+    let delet = confirm("Usuario escolhido foi o " + users[userdelet].name + "\nEstá correto ?")
     
     if(delet === true){
       users.splice(userdelet, 1);
@@ -276,7 +255,7 @@
   editUser() {
     let edit = prompt("Por favor, dígite a chave de acesso do usuario que deseja alterar", "");
 
-    let confirma = confirm("Usuario escolhido foi o " + this.getNameUser(edit) + "\nEstá correto ?")
+    let confirma = confirm("Usuario escolhido foi o " + users[edit].name + "\nEstá correto ?")
     if(confirma === true){
 
       var alterar = prompt("O que deseja alterar? \n1 - Nome \n2 - Identidade \n3 - Data de Aniversário \n4 - Nome da Rua \n5 - Número da Casa \n6- CEP ","");
@@ -330,7 +309,7 @@
 
     alert("Acesso como Usuario");
     var nameAcess = prompt("Dígite o seu nome de usuario aqui ","");
-    var indexAcess = prompt("Dígite a senha ou chave de acesso aquí","");
+    indexAcess = prompt("Dígite a senha ou chave de acesso aquí","");
     if(nameAcess === users[indexAcess].name){
       const actionClient = prompt( "O que deseja fazer ?\n1 - Realizar um saque\n2 - Realizar um deposito\n3 - Consultar o Saldo"
     );
@@ -352,13 +331,11 @@
         break;
     }
   } else {
-    return alert("Usuario inexistente ou chave de acesso incorreta");
-    
-    var aftersaque = prompt("Para voltar ao inicio, Dígite 1");
-    if (aftersaque === "1") {
-      this.acess();
+    let after = prompt("Usuario inexistente ou chave de acesso incorreta\nPara voltar ao inicio, Dígite 1");
+    if (after === "1") {
+      return this.acess();
     } else {
-      this.erro();
+      return this.erro();
     }
     }
     
@@ -366,16 +343,15 @@
 
   // Function para saque
   withdraw() {
-    let keyWithdraw = this.promptNum("Porfavor dígite a chave de acesso novamente")
 
-    let sac = this.promptNum("Quanto deseja sacar ? ","Por favor, digite um numero.\nTente novamente.");
+    let sac = this.promptNum("Seja bem vindo " + users[indexAcess].name + "\nQuanto deseja sacar ? ","Por favor, digite um numero.\nTente novamente.");
 
-    users[keyWithdraw].balanceCurrent =
-    users[keyWithdraw].balanceCurrent - sac;
-    users[keyWithdraw].transactions.transactions = "Saque de " + sac + " reais";
-    users[keyWithdraw].transactions.dateLastTransactions = this.getmes();
+    users[indexAcess].balanceCurrent =
+    users[indexAcess].balanceCurrent - sac;
+    users[indexAcess].transactions.transactions = "Saque de " + sac + " reais";
+    users[indexAcess].transactions.dateLastTransactions = this.getmes();
     
-    alert("Você efetuou um saque\nSeu saldo atual é " + users[keyWithdraw].balanceCurrent);
+    alert(users[indexAcess].name + " você efetuou um saque\nSeu saldo atual é " + users[indexAcess].balanceCurrent);
 
     var aftersaque = prompt("Para voltar ao inicio, Dígite 1");
     if (aftersaque === "1") {
@@ -386,16 +362,15 @@
   }
   // Function para depósito
   deposit() {
-    let keyDeposit = this.promptNum("Porfavor dígite a chave de acesso novamente")
-
-    var deposito = this.promptNum("Quanto deseja depositar ? ","ERRO.\nTente novamente."
+   
+    var deposito = this.promptNum("Seja Bem Vindo " + users[indexAcess].name + "\nQuanto deseja depositar ? ","ERRO.\nTente novamente."
     );
 
-    users[keyDeposit].balanceCurrent = users[keyDeposit].balanceCurrent + deposito;
-    users[keyDeposit].transactions.transactions ="Depósito de " + deposito + " reais";
-    users[keyDeposit].transactions.dateLastTransactions = this.getmes();
+    users[indexAcess].balanceCurrent = users[indexAcess].balanceCurrent + deposito;
+    users[indexAcess].transactions.transactions ="Depósito de " + deposito + " reais";
+    users[indexAcess].transactions.dateLastTransactions = this.getmes();
 
-    alert("Você efetuou um deposito\nSeu saldo atual é " + users[keyDeposit].balanceCurrent
+    alert(users[indexAcess].name + " você efetuou um deposito\nSeu saldo atual é " + users[indexAcess].balanceCurrent
     );
 
     var afterdeposit = prompt("Para voltar ao inicio, Dígite 1");
@@ -407,9 +382,8 @@
   }
   // Function para consulta de saldo
   consult() {
-    let keyConsult = this.promptNum("Porfavor dígite a chave de acesso novamente")
-
-    alert(users[keyConsult].name + " o seu saldo é " + users[keyConsult].balanceCurrent + " reais");
+    
+    alert(users[indexAcess].name + " o seu saldo é " + users[indexAcess].balanceCurrent + " reais");
     var afterconsult = prompt("Deseja voltar ao inicio ? Dígite 1");
     if (afterconsult === "1") {
       this.acess();
