@@ -412,3 +412,9 @@
   // Neste desafio aprendi bastante coisas novas e sinceramente gostei, não consegui fazer algumas coisas a mais que eu queria, mais eu gostei do resultado com o aprendizado de 2 meses sobre javascript
 
   //Explicando a chave de acesso dos usuarios, a chave de acesso básicamente sería o index do usuario, o usuario irá digitar o nome de usuario e o próximo prompt irá pedir a chave de acesso, a chave de acesso seria como a senha, que seria o index, caso não retorne o index correto, irá retornar um alert dizendo que o usuario não existe ou chave de acesso incorreto, usar o index como senha para o usuario foi o geito mais facil que pensei de fazer uma interação com o usuario
+
+  // chaves de acesso
+  // Daniel = 0 
+  // Fidel = 1
+  // Daniele = 2
+  // Jose Luiz = 3
