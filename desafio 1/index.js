@@ -12,7 +12,7 @@
       this.registratioNumber = this.uuidv4(1);
       this.balanceCurrent = current;
       this.transactions = {
-               transactions: transactions,
+               type: transactions,
                dateLastTransactions: date
                };
    }
@@ -333,9 +333,8 @@
   } else {
     let after = prompt("Usuario inexistente ou chave de acesso incorreta\nPara voltar ao inicio, Dígite 1");
     if (after === "1") {
-      return this.acess();
-    } else {
-      return this.erro();
+      return this.client();
+      }else {  return this.erro();
     }
     }
     
@@ -348,7 +347,7 @@
 
     users[indexAcess].balanceCurrent =
     users[indexAcess].balanceCurrent - sac;
-    users[indexAcess].transactions.transactions = "Saque de " + sac + " reais";
+    users[indexAcess].transactions.type = "Saque de " + sac + " reais";
     users[indexAcess].transactions.dateLastTransactions = this.getmes();
     
     alert(users[indexAcess].name + " você efetuou um saque\nSeu saldo atual é " + users[indexAcess].balanceCurrent);
@@ -367,7 +366,7 @@
     );
 
     users[indexAcess].balanceCurrent = users[indexAcess].balanceCurrent + deposito;
-    users[indexAcess].transactions.transactions ="Depósito de " + deposito + " reais";
+    users[indexAcess].transactions.type ="Depósito de " + deposito + " reais";
     users[indexAcess].transactions.dateLastTransactions = this.getmes();
 
     alert(users[indexAcess].name + " você efetuou um deposito\nSeu saldo atual é " + users[indexAcess].balanceCurrent
@@ -384,6 +383,9 @@
   consult() {
     
     alert(users[indexAcess].name + " o seu saldo é " + users[indexAcess].balanceCurrent + " reais");
+    users[indexAcess].transactions.type = "Consulta de Saldo";
+    users[indexAcess].transactions.dateLastTransactions = this.getmes();
+
     var afterconsult = prompt("Deseja voltar ao inicio ? Dígite 1");
     if (afterconsult === "1") {
       this.acess();
