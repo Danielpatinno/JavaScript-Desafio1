@@ -147,7 +147,7 @@
     alert("Seja bem vindo Gerente");
 
     var actionManager = prompt(
-      "Escolha uma das opções abaixo \n1 - Lista de Usuarios\n2 - Criar um usuario\n3 - Deletar um usuario\n4 - Editar dados de usuario",
+      "Escolha uma das opções abaixo \n1 - Lista de Usuarios\n2 - Criar um usuario\n3 - Deletar um usuario\n4 - Editar dados de usuario\n5 - Para voltar ao inicio",
       ""
     );
     switch (actionManager) {
@@ -163,6 +163,9 @@
       case "4":
         this.editUser();
         break;
+      case "5":
+        this.acess();
+        break;
       default:
         this.erro();
         break;
@@ -174,7 +177,7 @@
   userlist() {
 
     const actionList = prompt(
-      "Deseja ver\n1 - Dados de todos os usuarios\n2 - Dados  de um usuario especifico"
+      "Deseja ver\n1 - Dados de todos os usuarios\n2 - Dados  de um usuario especifico\n3 - Voltar atrás"
     );
     switch (actionList) {
       case "1":
@@ -182,7 +185,15 @@
         break;
       case "2":
         var indexUser = prompt("Por Favor, Dígite a chave de acesso do usuario que deseja acessar","");
-        console.log(users[indexUser]);
+        if(indexUser <= users.length){
+          return console.log(users[indexUser]);
+        } else {
+          alert("Usuario inexiste");
+          this.userlist();
+        }
+        break;
+      case "3":
+        this.manager();
         break;
       default:
         this.acess();
@@ -287,7 +298,6 @@
           this.erro();
           break;
       }
-
     } else {
       let afterCancel = prompt("Você cancelou a operação\nPara tentar novamente, Dígite 1\nPara voltar ao inicio, Dígite 2");
       switch(afterCancel){
@@ -311,7 +321,7 @@
     var nameAcess = prompt("Dígite o seu nome de usuario aqui ","");
     indexAcess = prompt("Dígite a senha ou chave de acesso aquí","");
     if(nameAcess === users[indexAcess].name){
-      const actionClient = prompt( "O que deseja fazer ?\n1 - Realizar um saque\n2 - Realizar um deposito\n3 - Consultar o Saldo"
+      const actionClient = prompt( "O que deseja fazer ?\n1 - Realizar um saque\n2 - Realizar um deposito\n3 - Consultar o Saldo\n4 - Voltar atrás\n5 - Voltar ao inicio"
     );
     switch (actionClient) {
       case "1":
@@ -324,14 +334,17 @@
         this.consult();
         break;
       case "4":
-        this.getkeyAcess();
+        this.client();
+        break;
+      case "5":
+        this.acess();
         break;
       default:
         this.erro();
         break;
     }
   } else {
-    let after = prompt("Usuario inexistente ou chave de acesso incorreta\nPara voltar ao inicio, Dígite 1");
+    let after = prompt("Usuario inexistente ou chave de acesso incorreta\nPara tentar novamente, Dígite 1\nPara cancelar,Dígite 2");
     if (after === "1") {
       return this.client();
       }else {  return this.erro();
@@ -397,14 +410,13 @@
   erro() {
 
     const result = prompt(
-      "ATENÇÃO \nOpção inválida \nSe você deseja tentar novamente, Dígite 1\nSe você deseja cancelar, Dígite 2","");
+      "ATENÇÃO \nSe você deseja voltar ao inicio, Dígite 1","");
     if (result === "1") {
       return this.acess();
     } else {
       return alert("Muito Obrigado por usar o Banco Patda");
     }
   }
-  
 }
 
   const banco = new bank("Banco Patda");
