@@ -125,13 +125,12 @@
 
 // Usuarios, os usuarios serão objetos contruidos apartir da classe user
 
-  const user1 = new user("Daniel","0","29/09","Rua Amasonas","22","",1000,"");
-  const user2 = new user("Fidel","1","27/08","Rua Amasonas","22","87160-000",1500,"");
-  const user3 = new user("Daniele","2","26/08","Rua Amasonas","22","87160-000",2000,"");
-  const user4 = new user("Jose Luis","3","14/06","Rua Hebe Camargo","481","87143-000",1600,"");
+  const user1 = new user("Daniel",80218269919,"29/09","Rua Amasonas","22","87000-000",1000,"");
+  const user2 = new user("Fidel",000000,"27/08","Rua Amasonas","22","87160-000",1500,"");
+  const user3 = new user("Daniele",1111111,"26/08","Rua Amasonas","22","87160-000",2000,"");
+  const user4 = new user("Jose Luis",22222,"14/06","Rua Hebe Camargo","481","87143-000",1600,"");
 
   const users = [user1, user2, user3, user4];
-  var indexAcess = null;
 
 // Classe banco, onde irá erdar apenas nome da classe de usuarios que irá receber o nome do banco apenas e funções de gerente,cliente, etc
 
@@ -169,7 +168,7 @@
     alert("Seja bem vindo Gerente");
 
     var actionManager = prompt(
-      "Escolha uma das opções abaixo \n1 - Lista de Usuarios\n2 - Criar um usuario\n3 - Deletar um usuario",
+      "Escolha uma das opções abaixo \n1 - Lista de Usuarios\n2 - Criar um usuario\n3 - Deletar um usuario\n4 - Editar dados de usuario",
       ""
     );
     switch (actionManager) {
@@ -181,6 +180,9 @@
         break;
       case "3":
         this.deleteUser();
+        break;
+      case "4":
+        this.editUser();
         break;
       default:
         this.erro();
@@ -244,20 +246,85 @@
     var userdelet = prompt(
       "Dígite a chave de acesso que deseja eliminar"
     );
-
-    users.splice(userdelet, 1);
-
-    alert("Você deletou o usuario " + this.getNameUser(userdelet));
-    let afterdelet = prompt(
-      "Usuario deletado\nPara voltar ao inicio,Dígite 1"
-    );
-    if (afterdelet === "1") {
-      this.acess();
-    } else {
-      this.erro();
+    let delet = confirm("Usuario escolhido foi o " + this.getNameUser(userdelet) + "\nEstá correto ?")
+    
+    if(delet === true){
+      users.splice(userdelet, 1);
+      let afterdelet = prompt("Usuario deletado\nPara voltar ao inicio,Dígite 1"
+      );
+      if (afterdelet === "1") {
+         this.acess();
+       } else {
+         this.erro();
+       }
+    } else { 
+    let afterCancel2 = prompt("Você cancelou a operação\nPara tentar novamente, Dígite 1\nPara voltar ao inicio, Dígite 2");
+    switch(afterCancel2){
+      case "1":
+        this.deleteUser();
+        break;
+      case "2":
+        this.acess();
+        break;
+      default:
+        this.erro();
+        break;
     }
-
   }
+  }
+
+  editUser() {
+    let edit = prompt("Por favor, dígite a chave de acesso do usuario que deseja alterar", "");
+
+    let confirma = confirm("Usuario escolhido foi o " + this.getNameUser(edit) + "\nEstá correto ?")
+    if(confirma === true){
+
+      var alterar = prompt("O que deseja alterar? \n1 - Nome \n2 - Identidade \n3 - Data de Aniversário \n4 - Nome da Rua \n5 - Número da Casa \n6- CEP ","");
+      if (alterar === "1") {
+        users[edit].name = prompt("Digite o novo nome aquí", "");
+      }
+      if (alterar === "2") {
+        users[edit].id = prompt("Dígite o novo número de Identidate aquí", "");
+      }
+      if (alterar === "3") {
+        users[edit].birthday = prompt("Digite a data de aniversário", "");
+      }
+      if (alterar === "4") {
+        users[edit].address.street = prompt("Dígite o nome da rua aquí", "");
+      }
+      if (alterar === "5") {
+        users[edit].address.numberHouse = prompt("Dígite o número da casa aquí", "");
+      }
+      if (alterar === "6") {
+        users[edit].address.zipCode = prompt("Dígite o novo CEP aquí", "");
+      }
+
+      let afterEdit = prompt("Dado editado com sucesso\nPara voltar ao inicio, Digite 1")
+      switch(afterEdit){
+        case "1":
+          this.acess();
+          break;
+        default:
+          this.erro();
+          break;
+      }
+
+    } else {
+      let afterCancel = prompt("Você cancelou a operação\nPara tentar novamente, Dígite 1\nPara voltar ao inicio, Dígite 2");
+      switch(afterCancel){
+        case "1":
+          this.editUser();
+          break;
+        case "2":
+          this.acess();
+          break;
+        default:
+          this.erro();
+          break;
+      }     
+    }
+  }
+
   // Function de acesso como cliente/Usuario
   client() {
 
@@ -301,11 +368,11 @@
   withdraw() {
     let keyWithdraw = this.promptNum("Porfavor dígite a chave de acesso novamente")
 
-    let sacar = this.promptNum("Quanto deseja sacar ? ","Por favor, digite um numero.\nTente novamente.");
+    let sac = this.promptNum("Quanto deseja sacar ? ","Por favor, digite um numero.\nTente novamente.");
 
     users[keyWithdraw].balanceCurrent =
-    users[keyWithdraw].balanceCurrent - sacar;
-    users[keyWithdraw].transactions.transactions = "Saque de " + sacar + " reais";
+    users[keyWithdraw].balanceCurrent - sac;
+    users[keyWithdraw].transactions.transactions = "Saque de " + sac + " reais";
     users[keyWithdraw].transactions.dateLastTransactions = this.getmes();
     
     alert("Você efetuou um saque\nSeu saldo atual é " + users[keyWithdraw].balanceCurrent);
@@ -369,3 +436,5 @@
 
 
   // Neste desafio aprendi bastante coisas novas e sinceramente gostei, não consegui fazer algumas coisas a mais que eu queria, mais eu gostei do resultado com o aprendizado de 2 meses sobre javascript
+
+  //Explicando a chave de acesso dos usuarios, a chave de acesso básicamente sería o index do usuario, o usuario irá digitar o nome de usuario e o próximo prompt irá pedir a chave de acesso, a chave de acesso seria como a senha, que seria o index, caso não retorne o index correto, irá retornar um alert dizendo que o usuario não existe ou chave de acesso incorreto, usar o index como senha para o usuario foi o geito mais facil que pensei de fazer uma interação com o usuario
